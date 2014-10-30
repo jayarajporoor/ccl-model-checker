@@ -1,0 +1,39 @@
+:-op(500,xfy,'|==').
+succ(R,S) :- succs(R,Slist), member(S,Slist).
+desc(R,S) :- succ(R,S).
+desc(R,S) :- succ(R,X),desc(X,S).
+
+tdesc(R,S,T) :- desc(R,S),tp(S,T).
+
+member(X, [H|T]) :- X = H ; member(X,T).
+
+loc(N,T,F).
+loc0(N,F).
+exists(X,T,F).
+forall(X,T,F).
+somewhere(F).
+land(F,G).
+lor(F,G).
+lnot(F).
+lprev(F).
+past(F).
+sofar(F).
+
+R '|==' tt.
+R '|==' loc(N,T,F)       :- succ(R,S),nm(S,N),tp(S,T), S '|==' F.
+R '|==' loc0(N,F)        :- succ(R,S),nm(S,N), S '|==' F.
+R '|==' land(F,G)        :- R '|==' F, R '|==' G.
+R '|==' lor(F,G)         :- R '|==' F; R '|==' G.
+R '|==' exists(X,T,F)    :- tdesc(R,S,T),nm(S,X), R '|==' F.
+R '|==' forall(X,T,F)    :- findall(F,(tdesc(R,S,T),nm(S,X),F),All), all_models(R,All).
+R '|==' somewhere(F)     :- desc(R,S), S '|==' F.
+R '|==' lnot(F)          :- not(R '|==' F).
+R '|==' lprev(F)         :- prev(R,S), S '|==' F.
+R '|==' past(F)          :- R '|==' F;(prev(R,S), S '|==' F).
+R '|==' sofar(F)         :- R '|==' F,(prev(R,S),(S=bot;S '|==' sofar(F)) ).
+
+
+all_models(R,[]).
+all_models(R,[F|Rest]) :-R '|==' F,all_models(R,Rest).
+
+mck(R,X) :- fdef(X,F),R '|==' F.

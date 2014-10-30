@@ -1,0 +1,15 @@
+consult('ccl.P').
+consult('data.P').
+mck(root,f).
+mck(root,f1).
+mck(root,f2).
+mck(root,f3).
+mck(root,f4).
+mck(root,f5).
+mck(root,f6).
+mck(root,f7).
+mck(root,f8).
+mck(root,f9).
+mck(root,f10).
+mck(root,f11).
+mck(root,f12).

@@ -1,0 +1,70 @@
+succs(root, [r1,r2,r3]).
+succs(r1,[z1,z2]).
+succs(r2,[z3]).
+succs(r3,[z4]).
+succs(z1,[m1]).
+succs(m1,[v1,v2]).
+
+prev(root,root1).
+prev(r1,r11).
+prev(r2,r21).
+prev(r3,r31).
+
+prev(root1,root2).
+prev(root2,bot).
+prev(r11,bot).
+prev(r21,bot).
+prev(r31,bot).
+
+succs(root1,[r11,r21,r31]).
+
+succs(root2,[r12]).
+prev(r11,r12).
+nm(r12,r1).
+tp(r12,reg).
+prev(r12,bot).
+
+nm(r11,r1).
+nm(r21,r1).
+nm(r31,r1).
+
+tp(r11,reg).
+tp(r21,reg).
+tp(r31,reg).
+
+nm(r1,r1).
+nm(r2,r2).
+nm(r3,r3).
+nm(z1,z1).
+nm(z2,z2).
+nm(z3,z3).
+nm(z4,z4).
+nm(m1,m1).
+nm(v1,v1).
+nm(v2,v2).
+
+tp(r1,reg).
+tp(r2,reg).
+tp(r3,reg).
+tp(z1,zone).
+tp(z2,zone).
+tp(z3,zone).
+tp(z4,zone).
+tp(m1,pm).
+tp(v1,vm).
+tp(v2,vm).
+
+fdef(f, loc(r1, reg, land(loc(z1,zone,tt), loc(z2,zone,tt))) ).
+fdef(f1, loc(r1,reg,tt) ).
+fdef(f2, exists(X,reg, loc(X,reg,tt)) ).
+fdef(f3, exists(X,reg, loc0(X,tt)) ).
+fdef(f4, forall(X,reg, exists(Y,zone, loc0(X,loc0(Y,tt))) )).
+fdef(f5, forall(X,reg, loc0(X,tt) )).
+fdef(f6, forall(X,zone, somewhere(loc0(X,tt)) )).
+fdef(f7, lnot(exists(X,zone, loc0(X,tt)) )).
+
+fdef(f8,lprev(loc(r1,reg,tt))).
+fdef(f9,past(loc(r1,reg,tt))).
+fdef(f10,sofar(loc(r1,reg,tt))).
+fdef(f11,sofar(exists(X,reg,loc0(X,tt)))).
+fdef(f12,lnot(sofar(exists(X,reg,loc0(X,tt))))).

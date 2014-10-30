@@ -1,0 +1,7 @@
+:-op(500,xfy,'|==').
+up(slave).
+up(master).
+msg(master,slave,msg1(3)).
+msg(Y,X,msg2(N)) :- up(Y),msg(X,Y,msg1(N)).
+msg(Y,X,msg3(N)) :- up(X),msg(X,Y,msg2(N)).
+msg(Y,X,msg4(N)) :- up(X),msg(X,Y,msg3(N)).
